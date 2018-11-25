@@ -1,0 +1,22 @@
+BootStrap: docker
+From: ubuntu:18.04
+
+%post
+    # install some system deps
+    echo `pwd`
+    apt-get -y update
+    # build-dep
+    apt-get -y install wget
+    # undeclared dependency:
+    apt-get -y install libqt5gui5
+
+    wget https://global.download.synology.com/download/Tools/CloudStationDrive/4.2.8-4421/Ubuntu/Installer/x86_64/synology-cloud-station-drive-4421.x86_64.deb
+    dpkg -i synology-cloud-station-drive-4421.x86_64.deb || apt-get -yf install
+    rm synology-cloud-station-drive-4421.x86_64.deb
+    
+    apt-get -y remove wget
+    apt-get -y autoremove
+    apt-get clean
+
+%runscript
+	exec /usr/bin/synology-cloud-station-drive "$@"
