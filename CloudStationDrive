@@ -3,7 +3,6 @@ From: ubuntu:18.04
 
 %post
     # install some system deps
-    echo `pwd`
     apt-get -y update
     # build-dep
     apt-get -y install wget
